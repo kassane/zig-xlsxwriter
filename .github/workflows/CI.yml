@@ -13,7 +13,7 @@ jobs:
       
       - name: build
         run: |
-            sudo apt update && sudo apt install -y libxlsxwriter-dev;\
+            sudo apt update && sudo apt install -y libxlsxwriter4;\
             zig build && zig build tutorial1; ls
   lint:
     runs-on: ubuntu-latest
