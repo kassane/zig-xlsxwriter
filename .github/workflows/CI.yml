@@ -11,9 +11,15 @@ jobs:
         with:
           version: 0.10.0
       
-      - name: build
+      - name: build libxlsxwriter
         run: |
-            sudo apt update && sudo apt install -y libxlsxwriter4;\
+            sudo apt update && sudo apt install -y cmake git;\
+            git clone https://github.com/jmcnamara/libxlsxwriter && cd libxlsxwriter; \
+            CC="zig cc -fno-sanitize=all -lc $@" CXX="zig c++ -fno-sanitize=all -lc $@" \
+            cmake -B build -H. -DCMAKE_BUILD_TYPE=Release;cmake --build build -j && sudo cmake --install build
+      
+      - name: build zig-wrapper
+        run: |
             zig build && zig build tutorial1; ls
   lint:
     runs-on: ubuntu-latest
