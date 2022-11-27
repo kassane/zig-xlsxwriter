@@ -7,10 +7,10 @@ const Expense = struct {
 };
 
 var expenses = [_]Expense{
-    .{ .item = "Rent", .cost = 1000.0, .datetime = .{ .year = 2013, .month = 1, .day = 13 } },
-    .{ .item = "Gas", .cost = 100.0, .datetime = .{ .year = 2013, .month = 1, .day = 14 } },
-    .{ .item = "Food", .cost = 300.0, .datetime = .{ .year = 2013, .month = 1, .day = 16 } },
-    .{ .item = "Gym", .cost = 50.0, .datetime = .{ .year = 2013, .month = 1, .day = 20 } },
+    .{ .item = "Rent", .cost = 1000.0, .datetime = .{ .year = 2013, .month = 1, .day = 13, .hour = 8, .min = 34, .sec = 65.45 } },
+    .{ .item = "Gas", .cost = 100.0, .datetime = .{ .year = 2013, .month = 1, .day = 14, .hour = 12, .min = 17, .sec = 23.34 } },
+    .{ .item = "Food", .cost = 300.0, .datetime = .{ .year = 2013, .month = 1, .day = 16, .hour = 4, .min = 29, .sec = 54.05 } },
+    .{ .item = "Gym", .cost = 50.0, .datetime = .{ .year = 2013, .month = 1, .day = 20, .hour = 6, .min = 55, .sec = 32.16 } },
 };
 
 pub fn main() void {
