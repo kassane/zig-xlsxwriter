@@ -36,7 +36,7 @@ pub fn main() void {
     _ = xlsxwriter.chart_title_set_name_font(chart, &font);
 
     // Insert the chart into the worksheet.
-    _ = xlsxwriter.worksheet_insert_chart(worksheet, xlsxwriter.CELL("B7"), chart);
+    _ = xlsxwriter.worksheet_insert_chart(worksheet, xlsxwriter.CELL("B7"), xlsxwriter.COLS("A1"), chart);
 
     _ = xlsxwriter.workbook_close(workbook);
 }
