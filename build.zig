@@ -9,6 +9,7 @@ pub fn build(b: *std.build.Builder) !void {
     // const tutorial1 = b.option(bool, "tutorial1", "Build Example: tutorial1 [default: off]") orelse false;
     // if (tutorial1)
     makeExample(b, "examples/tutorial1.zig", "tutorial1", mode, target);
+    makeExample(b, "examples/tutorial2.zig", "tutorial2", mode, target);
 }
 
 // fn libxlsxwriter(lib: *std.build.LibExeObjStep, b: *std.build.Builder, mode: std.builtin.Mode, target: std.zig.CrossTarget) void {

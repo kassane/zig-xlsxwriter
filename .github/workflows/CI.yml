@@ -18,9 +18,9 @@ jobs:
             CC="zig cc -fno-sanitize=all -lc $@" CXX="zig c++ -fno-sanitize=all -lc++ $@" \
             cmake -B build -H. -DCMAKE_BUILD_TYPE=Release;cmake --build build -j && sudo cmake --install build
       
-      - name: build zig-wrapper
+      - name: build zig-examples
         run: |
-            zig build && zig build tutorial1; ls
+            zig build && ls
   lint:
     runs-on: ubuntu-latest
     steps:
