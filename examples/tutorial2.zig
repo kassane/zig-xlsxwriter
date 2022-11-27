@@ -26,22 +26,22 @@ pub fn main() void {
 
     // Add a bold format to use to highlight cells.
     const bold: ?*xlsxwriter.lxw_format = xlsxwriter.workbook_add_format(workbook);
-    xlsxwriter.format_set_bold(bold);
+    _ = xlsxwriter.format_set_bold(bold);
 
     // Add a number format for cells with money.
     const money: ?*xlsxwriter.lxw_format = xlsxwriter.workbook_add_format(workbook);
-    xlsxwriter.format_set_num_format(money, "$#,##0");
+    _ = xlsxwriter.format_set_num_format(money, "$#,##0");
 
     // Add an Excel date format.
     const date_format: ?*xlsxwriter.lxw_format = xlsxwriter.workbook_add_format(workbook);
-    xlsxwriter.format_set_num_format(date_format, "mmmm d yyyy");
+    _ = xlsxwriter.format_set_num_format(date_format, "mmmm d yyyy");
 
     // Adjust the column width.
-    xlsxwriter.worksheet_set_column(worksheet, 0, 0, 15, null);
+    _ = xlsxwriter.worksheet_set_column(worksheet, 0, 0, 15, null);
 
     // Write some data header.
-    xlsxwriter.worksheet_write_string(worksheet, row, col, "Item", bold);
-    xlsxwriter.worksheet_write_string(worksheet, row, col + 1, "Cost", bold);
+    _ = xlsxwriter.worksheet_write_string(worksheet, row, col, "Item", bold);
+    _ = xlsxwriter.worksheet_write_string(worksheet, row, col + 1, "Cost", bold);
 
     // Iterate over the data and write it out element by element.
     while (row < 4) : (row += 1) {
@@ -50,9 +50,9 @@ pub fn main() void {
         _ = xlsxwriter.worksheet_write_number(worksheet, row, col + 2, expenses[index].cost, money);
     }
 
-    // Write a total using a formula. */
+    // Write a total using a formula.
     _ = xlsxwriter.worksheet_write_string(worksheet, row, col, "Total", 0);
-    _ = xlsxwriter.worksheet_write_formula(worksheet, row, col + 1, "=SUM(B1:B4)", 0);
+    _ = xlsxwriter.worksheet_write_formula(worksheet, row + 1, col + 2, "=SUM(C2:C5)", null);
 
     // Save the workbook and free any allocated memory.
     _ = xlsxwriter.workbook_close(workbook);

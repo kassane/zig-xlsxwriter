@@ -27,12 +27,11 @@ pub fn main() void {
         _ = xlsxwriter.worksheet_write_string(worksheet, row, col, expenses[row].item, null);
         _ = xlsxwriter.worksheet_write_number(worksheet, row, col + 1, expenses[row].cost, null);
         defer row += 1;
-        // defer col += 1;
     }
 
-    // Write a total using a formula. */
+    // Write a total using a formula.
     _ = xlsxwriter.worksheet_write_string(worksheet, row, col, "Total", 0);
-    _ = xlsxwriter.worksheet_write_formula(worksheet, row, col + 1, "=SUM(B1:B4)", 0);
+    _ = xlsxwriter.worksheet_write_formula(worksheet, row, col + 1, "=SUM(B1:B4)", null);
 
     // Save the workbook and free any allocated memory.
     _ = xlsxwriter.workbook_close(workbook);
