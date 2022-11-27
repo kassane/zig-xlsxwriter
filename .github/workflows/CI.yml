@@ -20,7 +20,9 @@ jobs:
       
       - name: build zig-examples
         run: |
-            zig build tutorial1; zig build tutorial2; ls
+            mkdir out;\
+            zig build tutorial1; zig build tutorial2; zig build chart; zig build array_formula; \
+            ls out/
   lint:
     runs-on: ubuntu-latest
     steps:

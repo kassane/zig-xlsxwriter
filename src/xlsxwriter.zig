@@ -31,10 +31,10 @@ const FILE = extern struct {
     _mode: c_int,
     _unused2: [20]u8,
 };
-pub const codecvt = opaque{};
-pub const wide_data = opaque{};
-pub const lock_t = opaque{};
-pub const marker = opaque{};
+pub const codecvt = opaque {};
+pub const wide_data = opaque {};
+pub const lock_t = opaque {};
+pub const marker = opaque {};
 pub const lxw_row_t = u32;
 pub const lxw_col_t = u16;
 pub const LXW_FALSE: c_int = 0;
@@ -219,7 +219,7 @@ const struct_unnamed_8 = extern struct {
 };
 pub const struct_lxw_custom_property = extern struct {
     type: enum_lxw_custom_property_types,
-    name: [*c]u8,
+    name: [*:0]const u8,
     u: union_unnamed_7,
     list_pointers: struct_unnamed_8,
 };
@@ -455,7 +455,7 @@ pub const struct_lxw_series_data_points = extern struct {
 };
 pub const struct_lxw_series_range = extern struct {
     formula: [*c]u8,
-    sheetname: [*c]u8,
+    sheetname: [*:0]const u8,
     first_row: lxw_row_t,
     last_row: lxw_row_t,
     first_col: lxw_col_t,
@@ -467,7 +467,7 @@ pub const struct_lxw_series_range = extern struct {
 };
 pub const lxw_series_range = struct_lxw_series_range;
 pub const struct_lxw_chart_font = extern struct {
-    name: [*c]u8,
+    name: [*:0]const u8,
     size: f64,
     bold: u8,
     italic: u8,
@@ -480,7 +480,7 @@ pub const struct_lxw_chart_font = extern struct {
 };
 pub const lxw_chart_font = struct_lxw_chart_font;
 pub const struct_lxw_chart_title = extern struct {
-    name: [*c]u8,
+    name: [*:0]const u8,
     row: lxw_row_t,
     col: lxw_col_t,
     font: [*c]lxw_chart_font,
@@ -592,7 +592,7 @@ pub const struct_lxw_chart_series = extern struct {
     trendline_forward: f64,
     trendline_backward: f64,
     trendline_value_type: u8,
-    trendline_name: [*c]u8,
+    trendline_name: [*:0]const u8,
     trendline_line: [*c]lxw_chart_line,
     trendline_intercept: f64,
     list_pointers: struct_unnamed_12,
@@ -1163,9 +1163,9 @@ pub extern fn lxw_version() [*c]const u8;
 pub extern fn lxw_version_id() u16;
 pub extern fn lxw_strerror(error_num: lxw_error) [*c]u8;
 pub extern fn lxw_quote_sheetname(str: [*c]const u8) [*c]u8;
-pub extern fn lxw_col_to_name(col_name: [*c]u8, col_num: lxw_col_t, absolute: u8) void;
-pub extern fn lxw_rowcol_to_cell(cell_name: [*c]u8, row: lxw_row_t, col: lxw_col_t) void;
-pub extern fn lxw_rowcol_to_cell_abs(cell_name: [*c]u8, row: lxw_row_t, col: lxw_col_t, abs_row: u8, abs_col: u8) void;
+pub extern fn lxw_col_to_name(col_name: [*:0]const u8, col_num: lxw_col_t, absolute: u8) void;
+pub extern fn lxw_rowcol_to_cell(cell_name: [*:0]const u8, row: lxw_row_t, col: lxw_col_t) void;
+pub extern fn lxw_rowcol_to_cell_abs(cell_name: [*:0]const u8, row: lxw_row_t, col: lxw_col_t, abs_row: u8, abs_col: u8) void;
 pub extern fn lxw_rowcol_to_range(range: [*c]u8, first_row: lxw_row_t, first_col: lxw_col_t, last_row: lxw_row_t, last_col: lxw_col_t) void;
 pub extern fn lxw_rowcol_to_range_abs(range: [*c]u8, first_row: lxw_row_t, first_col: lxw_col_t, last_row: lxw_row_t, last_col: lxw_col_t) void;
 pub extern fn lxw_rowcol_to_formula_abs(formula: [*c]u8, sheetname: [*c]const u8, first_row: lxw_row_t, first_col: lxw_col_t, last_row: lxw_row_t, last_col: lxw_col_t) void;
@@ -1450,10 +1450,10 @@ pub const struct_lxw_vml_obj = extern struct {
     from: struct_lxw_drawing_coords,
     to: struct_lxw_drawing_coords,
     author: [*c]u8,
-    font_name: [*c]u8,
+    font_name: [*:0]const u8,
     text: [*c]u8,
     image_position: [*c]u8,
-    name: [*c]u8,
+    name: [*:0]const u8,
     macro: [*c]u8,
     list_pointers: struct_unnamed_19,
 };
@@ -1660,7 +1660,7 @@ pub const struct_lxw_object_properties = extern struct {
     y_scale: f64,
     row: lxw_row_t,
     col: lxw_col_t,
-    filename: [*c]u8,
+    filename: [*:0]const u8,
     description: [*c]u8,
     url: [*c]u8,
     tip: [*c]u8,
@@ -1709,7 +1709,7 @@ const struct_unnamed_30 = extern struct {
     stqe_next: [*c]struct_lxw_table_obj,
 };
 pub const struct_lxw_table_obj = extern struct {
-    name: [*c]u8,
+    name: [*:0]const u8,
     total_string: [*c]u8,
     columns: [*c][*c]lxw_table_column,
     banded_columns: u8,
@@ -1858,7 +1858,7 @@ pub const lxw_conditional_format = struct_lxw_conditional_format;
 pub const lxw_cond_format_obj = struct_lxw_cond_format_obj;
 pub const lxw_cond_format_hash_element = struct_lxw_cond_format_hash_element;
 pub const struct_lxw_table_options = extern struct {
-    name: [*c]u8,
+    name: [*:0]const u8,
     no_header_row: u8,
     no_autofilter: u8,
     no_banded_rows: u8,
@@ -1924,7 +1924,7 @@ pub const struct_lxw_comment_options = extern struct {
     x_scale: f64,
     y_scale: f64,
     color: lxw_color_t,
-    font_name: [*c]u8,
+    font_name: [*:0]const u8,
     font_size: f64,
     font_family: u8,
     start_row: lxw_row_t,
@@ -2030,8 +2030,8 @@ pub const struct_lxw_worksheet = extern struct {
     dim_colmin: lxw_col_t,
     dim_colmax: lxw_col_t,
     sst: [*c]lxw_sst,
-    name: [*c]u8,
-    quoted_name: [*c]u8,
+    name: [*:0]const u8,
+    quoted_name: [*:0]const u8,
     tmpdir: [*c]u8,
     index: u16,
     active: u8,
@@ -2083,7 +2083,7 @@ pub const struct_lxw_worksheet = extern struct {
     black_white: u8,
     num_validations: u8,
     has_dynamic_arrays: u8,
-    vba_codename: [*c]u8,
+    vba_codename: [*:0]const u8,
     num_buttons: u16,
     tab_color: lxw_color_t,
     margin_left: f64,
@@ -2172,8 +2172,8 @@ pub const struct_lxw_worksheet_init_data = extern struct {
     active_sheet: [*c]u16,
     first_sheet: [*c]u16,
     sst: [*c]lxw_sst,
-    name: [*c]u8,
-    quoted_name: [*c]u8,
+    name: [*:0]const u8,
+    quoted_name: [*:0]const u8,
     tmpdir: [*c]u8,
     default_url_format: [*c]lxw_format,
     max_url_length: u16,
@@ -2302,8 +2302,8 @@ pub const struct_lxw_chartsheet = extern struct {
     chart: [*c]lxw_chart,
     protection: struct_lxw_protection_obj,
     is_protected: u8,
-    name: [*c]u8,
-    quoted_name: [*c]u8,
+    name: [*:0]const u8,
+    quoted_name: [*:0]const u8,
     tmpdir: [*c]u8,
     index: u16,
     active: u8,
@@ -2467,7 +2467,7 @@ pub const struct_lxw_workbook = extern struct {
     sst: [*c]lxw_sst,
     properties: [*c]lxw_doc_properties,
     custom_properties: [*c]struct_lxw_custom_properties,
-    filename: [*c]u8,
+    filename: [*:0]const u8,
     options: lxw_workbook_options,
     num_sheets: u16,
     num_worksheets: u16,
@@ -2495,7 +2495,7 @@ pub const struct_lxw_workbook = extern struct {
     used_xf_formats: [*c]lxw_hash_table,
     used_dxf_formats: [*c]lxw_hash_table,
     vba_project: [*c]u8,
-    vba_codename: [*c]u8,
+    vba_codename: [*:0]const u8,
     default_url_format: [*c]lxw_format,
 };
 pub const lxw_workbook = struct_lxw_workbook;
