@@ -19,7 +19,7 @@ pub fn main() void {
     _ = xlsxwriter.chart_add_series(chart, null, "Sheet1!$B$1:$B$5");
     _ = xlsxwriter.chart_add_series(chart, null, "Sheet1!$C$1:$C$5");
 
-    var font: ?*xlsxwriter.lxw_chart_font = .{
+    var font: xlsxwriter.lxw_chart_font = .{
         .name = "Chart example",
         .bold = xlsxwriter.LXW_EXPLICIT_FALSE,
         .color = xlsxwriter.LXW_COLOR_BLUE,
@@ -42,12 +42,12 @@ pub fn main() void {
 }
 
 fn write_worksheet_data(worksheet: ?*xlsxwriter.lxw_worksheet) void {
-    const data: [5][3]u8 = .{
-        [3]u8{ 1, 2, 3 },
-        [3]u8{ 2, 4, 6 },
-        [3]u8{ 3, 6, 9 },
-        [3]u8{ 4, 8, 12 },
-        [3]u8{ 5, 10, 15 },
+    const data: [5][3]f64 = .{
+        [3]f64{ 1, 2, 3 },
+        [3]f64{ 2, 4, 6 },
+        [3]f64{ 3, 6, 9 },
+        [3]f64{ 4, 8, 12 },
+        [3]f64{ 5, 10, 15 },
     };
 
     var row: u32 = 0;
