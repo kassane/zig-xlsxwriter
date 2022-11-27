@@ -20,7 +20,7 @@ jobs:
       
       - name: build zig-examples
         run: |
-            zig build && ls
+            zig build tutorial1; zig build tutorial2; ls
   lint:
     runs-on: ubuntu-latest
     steps:
