@@ -23,7 +23,7 @@ pub fn main() void {
     _ = xlsxwriter.worksheet_write_array_formula(worksheet, 0, 0, 0, 0, "{=SUM(B1:C1*B2:C2)}", null);
 
     // Similar to above but using the RANGE macro.
-    _ = xlsxwriter.worksheet_write_array_formula(worksheet, xlsxwriter.RANGE("A2:A2"), "{=SUM(B1:C1*B2:C2)}", null);
+    _ = xlsxwriter.worksheet_write_array_formula(worksheet, 1, xlsxwriter.RANGE("A2:A2"), 0, 0, "{=SUM(B1:C1*B2:C2)}", null);
 
     // Write an array formula that returns a range of values.
     _ = xlsxwriter.worksheet_write_array_formula(worksheet, 4, 0, 6, 0, "{=TREND(C5:C7,B5:B7)}", null);
