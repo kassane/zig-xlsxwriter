@@ -1,35 +1,22 @@
-name: CI
+name: Zig Build
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        runs-on: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.runs-on }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          fetch-depth: 0
       - uses: goto-bus-stop/setup-zig@v2
         with:
-          version: 0.10.0
+          version: 0.11.0
       
-      - name: build libxlsxwriter
-        run: |
-            sudo apt update && sudo apt install -y cmake git;\
-            git clone https://github.com/jmcnamara/libxlsxwriter && cd libxlsxwriter; \
-            CC="zig cc -fno-sanitize=all -lc $@" CXX="zig c++ -fno-sanitize=all -lc++ $@" \
-            cmake -B build -H. -DCMAKE_BUILD_TYPE=Release;cmake --build build -j && sudo cmake --install build
-      
-      - name: build zig-examples
-        run: |
-            mkdir out;\
-            zig build tutorial1; zig build tutorial2; zig build chart; zig build array_formula; \
-            ls out/
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: goto-bus-stop/setup-zig@v2
-        with:
-          version: 0.10.0
-      - run: |
-            rm -rf zig-cache
-            zig fmt --check --ast-check **.zig
+      - name: Build Summary
+        run: zig build --summary all -freference-trace

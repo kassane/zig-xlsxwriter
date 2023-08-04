@@ -20,7 +20,7 @@ pub fn main() void {
     _ = xlsxwriter.chart_add_series(chart, null, "Sheet1!$C$1:$C$5");
 
     var font: xlsxwriter.lxw_chart_font = .{
-        .name = "Chart example",
+        .name = @constCast("Chart example"),
         .bold = xlsxwriter.LXW_EXPLICIT_FALSE,
         .color = xlsxwriter.LXW_COLOR_BLUE,
         .italic = xlsxwriter.LXW_EXPLICIT_FALSE,

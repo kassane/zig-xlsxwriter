@@ -1,0 +1,10 @@
+.{
+    .name = "zig-xlsxwriter",
+    .version = "0.1.0",
+    .dependencies = .{
+        .xlsxwriter = .{
+            .url = "https://github.com/kassane/libxlsxwriter/archive/4d26958e5ecb8b63b3f8b8d0693dd47c19f90d56.tar.gz",
+            .hash = "122019cf739cf80ac6b8147314fb818a23203916d88350a769ff732aaa623e185fb1",
+        },
+    },
+}

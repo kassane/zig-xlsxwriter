@@ -8,7 +8,7 @@ Excel. It cannot be used to modify an existing file.
 
 ## Requirements
 
-- [zig v0.10.0 or higher](https://ziglang.org/download)
+- [zig v0.11.0 or higher](https://ziglang.org/download)
 - [libxlsxwriter](https://github.com/jmcnamara/libxlsxwriter)
 
 
