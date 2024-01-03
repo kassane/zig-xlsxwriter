@@ -7,9 +7,9 @@ pub fn build(b: *std.Build) void {
     const xlsxwriter_dep = b.dependency("xlsxwriter", .{
         .target = target,
         .optimize = optimize,
+        .USE_SYSTEM_MINIZIP = true,
     });
     const xlsxwriter = xlsxwriter_dep.artifact("xlsxwriter");
-
     _ = b.addModule("xlsxwriter", .{
         .source_file = .{
             .path = "src/xlsxwriter.zig",
@@ -57,7 +57,7 @@ fn makeExample(b: *std.build, property: BuildInfo) void {
         run_cmd.addArgs(args);
     }
 
-    var descr = b.fmt("Run the {s} example", .{property.filename()});
+    const descr = b.fmt("Run the {s} example", .{property.filename()});
     const run_step = b.step(property.filename(), descr);
     run_step.dependOn(&run_cmd.step);
 }
