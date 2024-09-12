@@ -21,8 +21,8 @@ pub fn main() void {
 
     // Start from the first cell. Rows and columns are zero indexed.
     var row: u32 = 0;
-    var col: u16 = 0;
-    var index: usize = 0;
+    const col: u16 = 0;
+    const index: usize = 0;
 
     // Add a bold format to use to highlight cells.
     const bold: ?*xlsxwriter.lxw_format = xlsxwriter.workbook_add_format(workbook);

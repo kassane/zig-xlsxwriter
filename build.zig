@@ -9,45 +9,52 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
         .USE_SYSTEM_MINIZIP = true,
     });
-    const xlsxwriter = xlsxwriter_dep.artifact("xlsxwriter");
-    _ = b.addModule("xlsxwriter", .{
-        .source_file = .{
-            .path = "src/xlsxwriter.zig",
-        },
+    const xlsxwriter_module = b.addModule("xlsxwriter", .{
+        .root_source_file = b.path("src/xlsxwriter.zig"),
     });
+
+    // get libxlsxwriter
+    xlsxwriter_module.linkLibrary(xlsxwriter_dep.artifact("xlsxwriter"));
+    xlsxwriter_module.link_libc = true;
 
     makeExample(b, .{
         .path = "examples/tutorial1.zig",
-        .lib = xlsxwriter,
+        .module = xlsxwriter_module,
+        .target = target,
+        .optimize = optimize,
     });
     makeExample(b, .{
         .path = "examples/tutorial2.zig",
-        .lib = xlsxwriter,
+        .module = xlsxwriter_module,
+        .target = target,
+        .optimize = optimize,
     });
     makeExample(b, .{
         .path = "examples/array_formula.zig",
-        .lib = xlsxwriter,
+        .module = xlsxwriter_module,
+        .target = target,
+        .optimize = optimize,
     });
     makeExample(b, .{
         .path = "examples/chart.zig",
-        .lib = xlsxwriter,
+        .module = xlsxwriter_module,
+        .target = target,
+        .optimize = optimize,
     });
 }
 
-fn makeExample(b: *std.build, property: BuildInfo) void {
+fn makeExample(b: *std.Build, options: BuildInfo) void {
     const example = b.addExecutable(.{
-        .name = property.filename(),
-        .root_source_file = .{ .path = property.path },
-        .target = property.lib.target,
-        .optimize = property.lib.optimize,
+        .name = options.filename(),
+        .root_source_file = b.path(options.path),
+        .target = options.target,
+        .optimize = options.optimize,
     });
 
-    for (property.lib.include_dirs.items) |include| {
-        example.include_dirs.append(include) catch {};
+    for (options.module.include_dirs.items) |include| {
+        example.root_module.include_dirs.append(b.allocator, include) catch {};
     }
-    example.addModule("xlsxwriter", b.modules.get("xlsxwriter").?);
-    example.linkLibrary(property.lib);
-    example.linkLibC();
+    example.root_module.addImport("xlsxwriter", options.module);
 
     b.installArtifact(example);
 
@@ -57,13 +64,15 @@ fn makeExample(b: *std.build, property: BuildInfo) void {
         run_cmd.addArgs(args);
     }
 
-    const descr = b.fmt("Run the {s} example", .{property.filename()});
-    const run_step = b.step(property.filename(), descr);
+    const descr = b.fmt("Run the {s} example", .{options.filename()});
+    const run_step = b.step(options.filename(), descr);
     run_step.dependOn(&run_cmd.step);
 }
 
 const BuildInfo = struct {
-    lib: *std.Build.Step.Compile,
+    target: std.Build.ResolvedTarget,
+    optimize: std.builtin.OptimizeMode,
+    module: *std.Build.Module,
     path: []const u8,
 
     fn filename(self: BuildInfo) []const u8 {

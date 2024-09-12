@@ -3,8 +3,8 @@
     .version = "0.1.0",
     .dependencies = .{
         .xlsxwriter = .{
-            .url = "https://github.com/jmcnamara/libxlsxwriter/archive/6a2364c42cac3bb6cf80ac501c3d5b3c2910bd17.tar.gz",
-            .hash = "1220ec59ba47b272a7f1f7b10fccd68c25cedc32ebb68c2e4b29e6998067008e3ad7",
+            .url = "git+https://github.com/kassane/libxlsxwriter?ref=zig-build#3d258a4c7418c4d27d712d1d0b99692dd300e9fe",
+            .hash = "1220b6b099174e25a087c75884789c155cba82f2d81b7137624c69cb628b1abb7b70",
         },
     },
     .paths = .{""},
